@@ -4,13 +4,50 @@ $(document).ready(function(){
 //var today = moment().hour();
 $("#currentDay").text(moment().format("MMM Do, YYYY"));
 
-$(".time-block").each(function(){
-    var time = parseInt($(this).attr("id"));
-    console.log(time)
-})
-localStorage.setItem("9AM", "textarea.value")
-});
+function hourChecker () {
+    var currentHour = moment().hour()
+    $(".time-block").each(function(){
+        var time = parseInt($(this).attr("id"));
+        console.log(time)
+        if (time < currentHour) {
+            $(this).addClass("past")
+        } else if (time === currentHour) {
+            $(this).removeClass("past")
+            $(this).addClass("present")
+        } else {
+            $(this).removeClass("past")
+            $(this).removeClass("present")
+            $(this).addClass("future")
+        }
+    })
+}
 
+//function saveSchedule(event) {
+    //localStorage.setItem("9AM", "textarea.value")
+//}
+
+//gets the text to the local storage after hitting the button
+$(".saveBtn").on("click", function() {
+    //grabs the text from the text box next to the button
+    var description = $(this).siblings(".description").val()
+    //
+    var timeBlock = $(this).parent().attr("id")
+    console.log(description)
+    localStorage.setItem(timeBlock, description)
+})
+
+//grabs local storage after refresh
+$("#9 .description").val(localStorage.getItem("9"))
+$("#10 .description").val(localStorage.getItem("10"))
+$("#11 .description").val(localStorage.getItem("11"))
+$("#12 .description").val(localStorage.getItem("12"))
+$("#13 .description").val(localStorage.getItem("13"))
+$("#14 .description").val(localStorage.getItem("14"))
+$("#15 .description").val(localStorage.getItem("15"))
+$("#16 .description").val(localStorage.getItem("16"))
+$("#17 .description").val(localStorage.getItem("17"))
+hourChecker()
+});
 //make sure if time < today then you want to add and remove classes of past, present and future
 
 // time < today, time === today, time > today
