@@ -1,52 +1,48 @@
-$(document).ready(function(){
+$(document).ready(function () {
     var blocksEl = document.querySelector(".container")
 
-//var today = moment().hour();
-$("#currentDay").text(moment().format("MMM Do, YYYY"));
+//displays current day on top of the screen
+    $("#currentDay").text(moment().format("MMM Do, YYYY"));
 
-function hourChecker () {
-    var currentHour = moment().hour()
-    $(".time-block").each(function(){
-        var time = parseInt($(this).attr("id"));
-        console.log(time)
-        if (time < currentHour) {
-            $(this).addClass("past")
-        } else if (time === currentHour) {
-            $(this).removeClass("past")
-            $(this).addClass("present")
-        } else {
-            $(this).removeClass("past")
-            $(this).removeClass("present")
-            $(this).addClass("future")
-        }
+    //checks to see what time it is for each text area
+    function hourChecker() {
+        var currentHour = moment().hour()
+        $(".time-block").each(function () {
+            var time = parseInt($(this).attr("id"));
+            if (time < currentHour) {
+                $(this).addClass("past")
+            } else if (time === currentHour) {
+                $(this).removeClass("past")
+                $(this).addClass("present")
+            } else {
+                $(this).removeClass("past")
+                $(this).removeClass("present")
+                $(this).addClass("future")
+            }
+        })
+    }
+
+    //gets the text to the local storage after hitting the button
+    $(".saveBtn").on("click", function () {
+        //grabs the text from the text box next to the button
+        var description = $(this).siblings(".description").val()
+        //
+        var timeBlock = $(this).parent().attr("id")
+        console.log(description)
+        localStorage.setItem(timeBlock, description)
     })
-}
 
-//function saveSchedule(event) {
-    //localStorage.setItem("9AM", "textarea.value")
-//}
-
-//gets the text to the local storage after hitting the button
-$(".saveBtn").on("click", function() {
-    //grabs the text from the text box next to the button
-    var description = $(this).siblings(".description").val()
-    //
-    var timeBlock = $(this).parent().attr("id")
-    console.log(description)
-    localStorage.setItem(timeBlock, description)
-})
-
-//grabs local storage after refresh
-$("#9 .description").val(localStorage.getItem("9"))
-$("#10 .description").val(localStorage.getItem("10"))
-$("#11 .description").val(localStorage.getItem("11"))
-$("#12 .description").val(localStorage.getItem("12"))
-$("#13 .description").val(localStorage.getItem("13"))
-$("#14 .description").val(localStorage.getItem("14"))
-$("#15 .description").val(localStorage.getItem("15"))
-$("#16 .description").val(localStorage.getItem("16"))
-$("#17 .description").val(localStorage.getItem("17"))
-hourChecker()
+    //grabs local storage after refresh
+    $("#9 .description").val(localStorage.getItem("9"))
+    $("#10 .description").val(localStorage.getItem("10"))
+    $("#11 .description").val(localStorage.getItem("11"))
+    $("#12 .description").val(localStorage.getItem("12"))
+    $("#13 .description").val(localStorage.getItem("13"))
+    $("#14 .description").val(localStorage.getItem("14"))
+    $("#15 .description").val(localStorage.getItem("15"))
+    $("#16 .description").val(localStorage.getItem("16"))
+    $("#17 .description").val(localStorage.getItem("17"))
+    hourChecker()
 });
 //make sure if time < today then you want to add and remove classes of past, present and future
 
@@ -54,7 +50,7 @@ hourChecker()
 
 //use $(this) a lot, including save button
 
-//local storage always needs a key and value, the key will be the stuff in the text area, the value will be the 
+//local storage always needs a key and value, the key will be the stuff in the text area, the value will be the
 
 //set item saves within local storage, get item retrieves what's already in local storage
 
